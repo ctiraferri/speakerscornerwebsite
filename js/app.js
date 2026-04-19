@@ -151,7 +151,6 @@
     var sections = [
       ['top',        'top'],
       ['servicios',  'servicios'],
-      ['proceso',    'proceso'],
       ['directores', 'directores'],
       ['articulos',  'articulos'],
       ['contacto',   'contacto']
