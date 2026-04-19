@@ -731,7 +731,7 @@ body { overflow-x: hidden; }
   }
   .sc-hero-stat-n { font-size: 28px; }
   .sc-hero-stat-l { font-size: 9.5px; letter-spacing: .18em; }
-  .sc-hero-art { max-width: 320px; margin: 0 auto; }
+  .sc-hero-art { max-width: 160px; margin: 0 auto; }
   .sc-bolt.b1 { font-size: 32px; }
   .sc-bolt.b2 { font-size: 22px; }
   .sc-bolt.b3 { font-size: 26px; left: 80%; }
