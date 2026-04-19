@@ -442,6 +442,7 @@ body { overflow-x: hidden; }
   font-size: 14px; line-height: 1.55; color: #BDBDBD;
   font-weight: 300; margin: 0;
 }
+.sc-dir-info p + p { margin-top: 12px; }
 .sc-dir-photo-full {
   overflow: hidden;
   filter: grayscale(.55);
