@@ -67,28 +67,36 @@ body { overflow-x: hidden; }
 
 /* ============================================================
    HERO — typing line: ghost text técnica para layout estable
-   El ghost reserva el ancho real de "CONVERSATION." (la más larga)
-   y la palabra real se posiciona absolute encima → ningún elemento
-   debajo (lead, botones, stats, barra amarilla) se desplaza al
-   cambiar de palabra. Solo el megáfono mantiene su ancho de columna.
+   ---------------------------------------------------------------
+   El ghost contiene la estructura COMPLETA de la palabra más larga
+   (CONVERSATION + cursor + ".") con visibility:hidden — eso le
+   reserva al span padre exactamente el ancho y alto de esa
+   composición. La capa real va position:absolute en top-left con
+   ancho natural, así fluye normalmente con la palabra que se está
+   tipeando sin hacer flexbox y sin riesgo de que el cursor se
+   reposicione abajo. La altura del H1 nunca cambia → nada de lo
+   que está debajo (lead, CTAs, stats, barra amarilla) se mueve.
    ============================================================ */
 .sc-hero-typing-line {
   position: relative;
   display: inline-block;
   white-space: nowrap;
+  vertical-align: baseline;
 }
 .sc-typing-ghost {
   visibility: hidden;
   pointer-events: none;
   user-select: none;
-  display: inline-block;
+  display: inline;
+  white-space: nowrap;
 }
+.sc-cursor-ghost { animation: none !important; }
 .sc-typing-real {
   position: absolute;
-  inset: 0;
-  display: inline-flex;
-  align-items: baseline;
+  top: 0;
+  left: 0;
   white-space: nowrap;
+  line-height: inherit;
 }
 .sc-hero-period { color: #fff; }
 
