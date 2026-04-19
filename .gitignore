@@ -1,0 +1,12 @@
+# Bundle handoff original (no se publica)
+Speaker´s Corner Website-handoff.zip
+handoff-extracted/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code
+.claude/

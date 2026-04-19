@@ -1,0 +1,291 @@
+/* =========================================================
+   SPEAKER'S CORNER CONSULTORA — Design Tokens
+   Colors + Typography foundation
+   ---------------------------------------------------------
+   Brand: black + yellow, high-contrast editorial/political.
+   Type: Lato (primary), with a tight uppercase display
+   treatment derived from the wordmark.
+   ========================================================= */
+
+/* -------- Fonts -------- */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/Lato-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Lato-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Lato-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/Lato-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../fonts/Lato-Black.woff2') format('woff2');
+}
+
+/* Google Fonts fallback — remove once woff2 files are in fonts/ */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+  /* =========================================================
+     COLORS — Primitive
+     ========================================================= */
+
+  /* Black scale — the brand backbone */
+  --sc-black:          #000000;
+  --sc-ink:            #0A0A0A;   /* page fg / deep surfaces */
+  --sc-coal:           #1A1A1A;   /* elevated dark surface */
+  --sc-graphite:       #2B2B2B;   /* borders on dark */
+  --sc-slate:          #4A4A4A;   /* muted fg on dark */
+  --sc-ash:            #8A8A8A;   /* secondary fg */
+  --sc-fog:            #BDBDBD;   /* tertiary fg / divider on light */
+  --sc-mist:           #E5E5E5;   /* subtle lines */
+  --sc-paper:          #F4F4F4;   /* page bg light */
+  --sc-white:          #FFFFFF;
+
+  /* Yellow scale — the voice / accent */
+  --sc-yellow:         #FFD60A;   /* brand yellow (halftone bolt) */
+  --sc-yellow-bright:  #FFE34D;   /* hover / highlight */
+  --sc-yellow-deep:    #E6B800;   /* press / print-safe */
+  --sc-yellow-soft:    #FFF4B8;   /* background wash */
+
+  /* Semantic signals (editorial news palette) */
+  --sc-signal-red:     #D7263D;   /* crisis, breaking */
+  --sc-signal-green:   #2E8B57;   /* positive trends */
+  --sc-signal-blue:    #1D4E89;   /* analysis / institutional */
+
+  /* =========================================================
+     SEMANTIC TOKENS — Light (default)
+     ========================================================= */
+  --bg:                var(--sc-white);
+  --bg-elevated:       var(--sc-paper);
+  --bg-inverse:        var(--sc-black);
+  --bg-accent:         var(--sc-yellow);
+  --bg-accent-soft:    var(--sc-yellow-soft);
+
+  --fg:                var(--sc-ink);
+  --fg-muted:          var(--sc-slate);
+  --fg-subtle:         var(--sc-ash);
+  --fg-inverse:        var(--sc-white);
+  --fg-on-accent:      var(--sc-black);
+
+  --border:            var(--sc-mist);
+  --border-strong:     var(--sc-ink);
+  --border-accent:     var(--sc-yellow);
+
+  --focus-ring:        var(--sc-yellow);
+
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
+  --font-sans: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Lato', -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Sizes (editorial scale) */
+  --fs-hero:      clamp(3rem, 7vw, 6.5rem);   /* 48 → 104 */
+  --fs-display:   clamp(2.25rem, 5vw, 4rem);  /* 36 → 64 */
+  --fs-h1:        2.25rem;   /* 36 */
+  --fs-h2:        1.75rem;   /* 28 */
+  --fs-h3:        1.375rem;  /* 22 */
+  --fs-h4:        1.125rem;  /* 18 */
+  --fs-body:      1rem;      /* 16 */
+  --fs-small:     0.875rem;  /* 14 */
+  --fs-caption:   0.75rem;   /* 12 */
+  --fs-eyebrow:   0.6875rem; /* 11 — uppercase labels */
+
+  /* Line-heights */
+  --lh-tight: 1.05;
+  --lh-display: 1.1;
+  --lh-snug: 1.25;
+  --lh-body: 1.6;
+  --lh-loose: 1.8;
+
+  /* Letter-spacing — brand cue: open tracking on uppercase */
+  --ls-hero: -0.02em;
+  --ls-display: -0.01em;
+  --ls-heading: 0;
+  --ls-body: 0.005em;
+  --ls-caps-tight: 0.04em;
+  --ls-caps-wide: 0.18em;   /* the wordmark tracking */
+  --ls-caps-xwide: 0.32em;  /* "CONSULTORA" style label */
+
+  /* =========================================================
+     SPACING — 4px base
+     ========================================================= */
+  --sp-0: 0;
+  --sp-1: 0.25rem;  /* 4  */
+  --sp-2: 0.5rem;   /* 8  */
+  --sp-3: 0.75rem;  /* 12 */
+  --sp-4: 1rem;     /* 16 */
+  --sp-5: 1.5rem;   /* 24 */
+  --sp-6: 2rem;     /* 32 */
+  --sp-7: 3rem;     /* 48 */
+  --sp-8: 4rem;     /* 64 */
+  --sp-9: 6rem;     /* 96 */
+  --sp-10: 8rem;    /* 128 */
+
+  /* =========================================================
+     RADII — brand is sharp; radii are minimal
+     ========================================================= */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+  --r-pill: 999px;
+
+  /* =========================================================
+     SHADOWS — editorial / press
+     Kept flat. A single "print" shadow for cards.
+     ========================================================= */
+  --shadow-0: none;
+  --shadow-1: 0 1px 0 0 var(--sc-ink);
+  --shadow-print: 6px 6px 0 0 var(--sc-ink);     /* hard offset */
+  --shadow-print-yellow: 6px 6px 0 0 var(--sc-yellow);
+  --shadow-card: 0 2px 12px rgba(0,0,0,.08);
+  --shadow-pop: 0 12px 32px rgba(0,0,0,.18);
+
+  /* Borders */
+  --bw-hair: 1px;
+  --bw-rule: 2px;
+  --bw-bold: 4px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --ease-in-out: cubic-bezier(.4,.0,.2,1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+}
+
+/* =========================================================
+   SEMANTIC TEXT STYLES
+   ========================================================= */
+
+.sc-hero {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-hero);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.sc-display {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
+}
+
+.sc-h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-caps-tight);
+  text-transform: uppercase;
+}
+
+.sc-h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-caps-tight);
+  text-transform: uppercase;
+}
+
+.sc-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: 0;
+}
+
+.sc-h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+}
+
+.sc-body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--fg);
+}
+
+.sc-body-light {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.sc-lead {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-light);
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+.sc-small { font-size: var(--fs-small); line-height: 1.5; }
+.sc-caption { font-size: var(--fs-caption); color: var(--fg-muted); }
+
+.sc-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-xwide);
+  color: var(--fg-muted);
+}
+
+.sc-wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-wide);
+}
+
+/* yellow highlighter — recurring brand marker */
+.sc-mark {
+  background: linear-gradient(transparent 60%, var(--sc-yellow) 60%);
+  padding: 0 .1em;
+}

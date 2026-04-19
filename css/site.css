@@ -1,0 +1,578 @@
+/* ============================================================
+   Speaker's Corner — site extensions
+   Animations, new sections (ticker, process, articles, FAQ),
+   parallax + reveal helpers. Rides on kit.css.
+   ============================================================ */
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ----- Reveal on scroll primitive ----- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].in {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-reveal="left"]  { transform: translateX(-40px); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="left"].in, [data-reveal="right"].in { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(.94); }
+[data-reveal="scale"].in { transform: scale(1); }
+
+/* ============================================================
+   TICKER — the yellow marquee under the hero
+   ============================================================ */
+.sc-ticker {
+  background: #FFD60A;
+  color: #000;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  overflow: hidden;
+  position: relative;
+  padding: 18px 0;
+}
+.sc-ticker-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: sc-ticker 48s linear infinite;
+  will-change: transform;
+}
+.sc-ticker:hover .sc-ticker-track { animation-play-state: paused; }
+.sc-ticker-item {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  font-size: clamp(22px, 2.6vw, 34px);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 48px;
+}
+.sc-ticker-item::after {
+  content: "◉";
+  font-size: .55em;
+  color: #000;
+}
+@keyframes sc-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   HERO — typing line reserves space so layout doesn't reflow
+   ============================================================ */
+.sc-hero-typing-line {
+  display: inline-block;
+  min-height: 1em;
+  min-width: 13ch; /* fits longest word (CONVERSATION = 12) so layout never reflows */
+}
+.sc-hero-period { color: #fff; }
+
+/* Lock the megaphone to its "CONVERSATION" size so it never scales with the word */
+.sc-hero-art { max-width: 440px; margin-left: auto; }
+.sc-hero-art img { width: 100%; height: auto; }
+
+/* ============================================================
+   HERO enhancements — floating bolts, typing cursor
+   ============================================================ */
+.sc-hero-sec { isolation: isolate; }
+.sc-hero-sec::after {
+  /* subtle grid */
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 75%);
+  z-index: 0;
+}
+.sc-hero-grid { position: relative; z-index: 2; }
+
+.sc-hero-art {
+  animation: sc-hero-float 6s ease-in-out infinite;
+}
+@keyframes sc-hero-float {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-14px) rotate(1deg); }
+}
+
+.sc-bolt {
+  position: absolute;
+  color: #FFD60A;
+  font-weight: 900;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(255, 214, 10, .4));
+}
+.sc-bolt.b1 { top: 12%; left: 55%; font-size: 46px; animation: sc-bolt-a 4.2s ease-in-out infinite; }
+.sc-bolt.b2 { top: 58%; left: 62%; font-size: 28px; animation: sc-bolt-a 3.6s ease-in-out infinite .4s; }
+.sc-bolt.b3 { top: 28%; left: 90%; font-size: 34px; animation: sc-bolt-a 5s   ease-in-out infinite .8s; }
+@keyframes sc-bolt-a {
+  0%, 100% { transform: translateY(0)   rotate(-6deg); opacity: .85; }
+  50%      { transform: translateY(-10px) rotate(6deg);  opacity: 1; }
+}
+
+.sc-cursor {
+  display: inline-block;
+  width: .5ch; height: .85em;
+  background: #FFD60A;
+  margin-left: 4px;
+  vertical-align: -.05em;
+  animation: sc-blink 1s steps(2) infinite;
+}
+@keyframes sc-blink { 50% { opacity: 0; } }
+
+.sc-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 48px;
+  margin-top: 52px;
+  padding-top: 32px;
+  border-top: 1px solid #1A1A1A;
+  max-width: 560px;
+}
+.sc-hero-stat-n {
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #FFD60A;
+}
+.sc-hero-stat-l {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   SERVICE CARDS — intro animation override
+   ============================================================ */
+.sc-service { transform-origin: top left; }
+.sc-service .sc-service-icon {
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.sc-service:hover .sc-service-icon {
+  transform: scale(1.06) rotate(-2deg);
+}
+.sc-service:hover .sc-service-more {
+  color: #000; background: #FFD60A; padding: 2px 6px;
+}
+.sc-service-more { transition: all .15s; display: inline-block; }
+
+/* ============================================================
+   PROCESS — numbered steps on dark
+   ============================================================ */
+.sc-process {
+  background: #000;
+  color: #fff;
+  padding: 120px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.sc-process-head {
+  max-width: 1280px;
+  margin: 0 auto 72px;
+}
+.sc-process-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.sc-process-grid::before {
+  /* connecting line */
+  content: "";
+  position: absolute;
+  top: 38px; left: 40px; right: 40px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    #FFD60A 0 8px,
+    transparent 8px 16px
+  );
+  z-index: 0;
+}
+.sc-step {
+  position: relative;
+  z-index: 1;
+  padding: 24px 0;
+}
+.sc-step-n {
+  width: 76px; height: 76px;
+  background: #FFD60A;
+  color: #000;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900;
+  font-size: 32px;
+  border: 2px solid #000;
+  box-shadow: 6px 6px 0 0 #fff;
+  margin-bottom: 28px;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.sc-step:hover .sc-step-n { transform: rotate(-8deg) scale(1.05); }
+.sc-step-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 17px;
+  letter-spacing: .02em;
+  margin: 0 0 10px;
+}
+.sc-step-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: #BDBDBD;
+  margin: 0;
+}
+
+/* ============================================================
+   ARTICLES — editorial cards
+   ============================================================ */
+.sc-articles-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 24px;
+}
+.sc-art {
+  background: #fff;
+  border: 1.5px solid #000;
+  padding: 0;
+  box-shadow: 8px 8px 0 0 #000;
+  transition: all .2s cubic-bezier(.2,.7,.2,1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sc-art:hover {
+  box-shadow: 8px 8px 0 0 #FFD60A;
+  transform: translate(-2px, -2px);
+}
+.sc-art-cat {
+  padding: 12px 20px;
+  border-bottom: 1.5px solid #000;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  background: #FFD60A;
+  color: #000;
+}
+.sc-art-body { padding: 24px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+.sc-art-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+  margin: 0 0 14px;
+}
+.sc-art.feature .sc-art-title { font-size: 32px; }
+.sc-art-lead {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #4A4A4A;
+  font-weight: 300;
+  margin: 0 0 auto;
+}
+.sc-art-meta {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #E5E5E5;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #4A4A4A;
+}
+.sc-art-meta .sc-art-read { color: #000; border-bottom: 2px solid #FFD60A; }
+.sc-art-thumb {
+  aspect-ratio: 16 / 9;
+  background: #0A0A0A;
+  display: grid;
+  place-items: center;
+  color: #FFD60A;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  font-size: 42px;
+  overflow: hidden;
+  border-bottom: 1.5px solid #000;
+  position: relative;
+}
+.sc-art-thumb.alt { background: #FFD60A; color: #000; }
+.sc-art-thumb.photo {
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(.6);
+}
+.sc-art-thumb .sc-art-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  font-weight: 900;
+}
+
+/* ============================================================
+   COUNTRIES — flip / reveal on hover
+   ============================================================ */
+.sc-country {
+  position: relative;
+  overflow: hidden;
+  transition: none;
+}
+.sc-country::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: #000;
+  transform: translateY(100%);
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+  z-index: 0;
+}
+.sc-country:hover { background: #fff; color: #FFD60A; }
+.sc-country:hover::before { transform: translateY(0); }
+.sc-country > span { position: relative; z-index: 1; }
+
+/* ============================================================
+   QUOTE — rotating citations
+   ============================================================ */
+.sc-quote { min-height: 420px; display: flex; flex-direction: column; justify-content: center; }
+.sc-quote-stack { position: relative; min-height: 180px; }
+.sc-quote-slot {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.sc-quote-slot.active { opacity: 1; transform: translateY(0); }
+.sc-quote-dots {
+  display: flex; gap: 8px; justify-content: center; margin-top: 32px;
+}
+.sc-quote-dots button {
+  width: 10px; height: 10px; border: 2px solid #000; background: transparent;
+  cursor: pointer; padding: 0;
+  transition: background .15s;
+}
+.sc-quote-dots button.active { background: #000; }
+
+/* ============================================================
+   DIRECTORS — overlap image hover
+   ============================================================ */
+.sc-dir {
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.sc-dir:hover { transform: translateY(-4px); }
+.sc-dir-photo {
+  transition: filter .3s;
+}
+.sc-dir:hover .sc-dir-photo { filter: grayscale(0); }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.sc-faq-list {
+  max-width: 960px;
+  margin: 0 auto;
+  border-top: 1.5px solid #000;
+}
+.sc-faq-item {
+  border-bottom: 1.5px solid #000;
+  padding: 0;
+}
+.sc-faq-q {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 28px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: padding .2s, background .2s;
+}
+.sc-faq-q:hover { background: #F4F4F4; padding-left: 16px; }
+.sc-faq-q-text {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: -.005em;
+}
+.sc-faq-plus {
+  font-weight: 900;
+  font-size: 28px;
+  min-width: 36px;
+  text-align: center;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
+  color: #000;
+}
+.sc-faq-item.open .sc-faq-plus { transform: rotate(45deg); color: #FFD60A; background: #000; border-radius: 2px; }
+.sc-faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s cubic-bezier(.2,.7,.2,1);
+}
+.sc-faq-item.open .sc-faq-a { max-height: 400px; }
+.sc-faq-a-inner {
+  padding: 0 8px 28px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4A4A4A;
+  font-weight: 300;
+  max-width: 720px;
+}
+
+/* ============================================================
+   CONTACT STRIP — add mascot echo
+   ============================================================ */
+.sc-contact { position: relative; overflow: hidden; }
+.sc-contact::before {
+  content: "";
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  background: #000;
+  transform: rotate(18deg);
+  opacity: .04;
+}
+.sc-contact-inner { position: relative; z-index: 1; }
+
+/* ============================================================
+   SECTION HEAD — accent bar
+   ============================================================ */
+.sc-section-head {
+  position: relative;
+}
+.sc-section-head .sc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.sc-section-head .sc-eyebrow::before {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: #FFD60A;
+}
+
+/* ============================================================
+   CURSOR FOLLOWER
+   ============================================================ */
+.sc-cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  background: #FFD60A;
+  border: 2px solid #000;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: difference;
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sc-cursor-dot { display: block; }
+}
+
+/* ============================================================
+   TWEAKS panel
+   ============================================================ */
+.sc-tweaks {
+  position: fixed;
+  right: 20px; bottom: 20px;
+  background: #fff;
+  border: 1.5px solid #000;
+  box-shadow: 8px 8px 0 0 #000;
+  padding: 20px 22px;
+  width: 280px;
+  z-index: 9998;
+  font-family: inherit;
+}
+.sc-tweaks h4 {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-size: 11px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #000;
+}
+.sc-tweak-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+.sc-tweak-row label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.sc-tweak-row input[type=range] { width: 110px; accent-color: #FFD60A; }
+.sc-tweak-swatches { display: flex; gap: 6px; }
+.sc-tweak-swatch {
+  width: 24px; height: 24px;
+  border: 1.5px solid #000;
+  cursor: pointer;
+  padding: 0;
+}
+.sc-tweak-swatch.active { box-shadow: 0 0 0 2px #000, 0 0 0 3px #FFD60A; }
+.sc-tweak-toggle {
+  display: inline-flex;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.sc-tweak-toggle.on { background: #FFD60A; color: #000; }
+
+/* ============================================================
+   RESPONSIVE-ish
+   ============================================================ */
+@media (max-width: 960px) {
+  .sc-nav { padding: 14px 20px; gap: 12px; }
+  .sc-nav-links { display: none; }
+  .sc-hero-sec, .sc-section, .sc-process, .sc-contact, .sc-footer { padding-left: 20px; padding-right: 20px; }
+  .sc-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sc-service-grid { grid-template-columns: 1fr; }
+  .sc-process-grid { grid-template-columns: 1fr 1fr; }
+  .sc-process-grid::before { display: none; }
+  .sc-articles-grid { grid-template-columns: 1fr; }
+  .sc-countries { grid-template-columns: 1fr 1fr 1fr; }
+  .sc-dirs { grid-template-columns: 1fr; }
+  .sc-footer { grid-template-columns: 1fr; }
+  .sc-footer-cols { grid-template-columns: 1fr 1fr; }
+  .sc-contact-inner { flex-direction: column; align-items: flex-start; }
+  .sc-tweaks { left: 12px; right: 12px; width: auto; bottom: 12px; }
+}
