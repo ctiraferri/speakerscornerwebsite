@@ -815,6 +815,36 @@ body { overflow-x: hidden; }
 }
 
 /* ============================================================
+   FOOTER — barra "powered by" al pie
+   ============================================================ */
+.sc-footer { position: relative; padding-bottom: 72px; }
+.sc-powered {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 18px 56px;
+  border-top: 1px solid #1A1A1A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: #4A4A4A;
+}
+.sc-powered a {
+  color: #BDBDBD;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.sc-powered a:hover { color: #FFD60A; border-bottom-color: #FFD60A; }
+@media (max-width: 760px) {
+  .sc-powered { padding: 16px 16px; font-size: 10px; letter-spacing: .18em; }
+}
+
+/* ============================================================
    ARTICLE PAGES — layout editorial para posts individuales
    ============================================================ */
 .sc-post-hero {
