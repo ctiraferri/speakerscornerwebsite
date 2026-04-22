@@ -678,7 +678,7 @@ body { overflow-x: hidden; }
   .sc-service-grid, .sc-service-grid-4 { grid-template-columns: repeat(2, 1fr); }
   .sc-articles-grid { grid-template-columns: 1fr 1fr; }
   .sc-articles-grid .sc-art.feature { grid-column: 1 / -1; }
-  .sc-countries { grid-template-columns: repeat(3, 1fr); }
+  .sc-countries { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ============================================================
