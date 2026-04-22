@@ -157,7 +157,7 @@ body { overflow-x: hidden; }
 
 .sc-hero-stats {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   gap: 48px;
   margin-top: 52px;
   padding-top: 32px;
@@ -724,7 +724,7 @@ body { overflow-x: hidden; }
   .sc-hero-cta-row { flex-direction: column; align-items: stretch; }
   .sc-hero-cta-row .sc-btn { text-align: center; }
   .sc-hero-stats {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-top: 36px;
     padding-top: 24px;
@@ -810,7 +810,7 @@ body { overflow-x: hidden; }
 
 @media (max-width: 380px) {
   .sc-footer-cols { grid-template-columns: 1fr; }
-  .sc-hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .sc-hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .sc-hero-stat-n { font-size: 24px; }
 }
 
