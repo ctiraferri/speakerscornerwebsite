@@ -153,6 +153,7 @@
       ['servicios',  'servicios'],
       ['directores', 'directores'],
       ['articulos',  'articulos'],
+      ['medios',     'medios'],
       ['contacto',   'contacto']
     ];
     var links = nav.querySelectorAll('.sc-nav-link');
@@ -249,6 +250,21 @@
   }
 
   // ----------------------------------------------------------
+  // 7) Medios: oculta el overlay ▶ cuando el video reproduce
+  // ----------------------------------------------------------
+  function initMedios() {
+    document.querySelectorAll('.sc-medio video').forEach(function (v) {
+      var fig = v.closest('.sc-medio');
+      if (!fig) return;
+      v.addEventListener('play',  function () { fig.classList.add('is-playing'); });
+      v.addEventListener('pause', function () {
+        if (v.ended || v.currentTime === 0) fig.classList.remove('is-playing');
+      });
+      v.addEventListener('ended', function () { fig.classList.remove('is-playing'); });
+    });
+  }
+
+  // ----------------------------------------------------------
   // Boot
   // ----------------------------------------------------------
   function boot() {
@@ -258,6 +274,7 @@
     initNav();
     initQuote();
     initFAQ();
+    initMedios();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
